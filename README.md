@@ -8,7 +8,7 @@ Template de configuração do Claude Code para projetos Laravel. Inclui regras, 
 
 ```bash
 # Na raiz do seu projeto Laravel
-git clone https://github.com/SEU_USUARIO/claude-code-laravel.git temp-claude
+git clone https://github.com/rfl-designer/claude-code-laravel.git temp-claude
 cp -r temp-claude/.claude .
 cp temp-claude/CLAUDE.md .
 rm -rf temp-claude
@@ -21,7 +21,7 @@ cp .claude/settings.local.json.example .claude/settings.local.json
 
 ```bash
 # Clonar como template
-git clone --depth 1 https://github.com/SEU_USUARIO/claude-code-laravel.git
+git clone --depth 1 https://github.com/rfl-designer/claude-code-laravel.git
 rm -rf claude-code-laravel/.git
 ```
 
