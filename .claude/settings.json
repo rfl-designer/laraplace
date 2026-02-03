@@ -1,0 +1,73 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/validate-bash.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/format-php.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "agents": {
+    "code-reviewer": {
+      "description": "Revisa código antes de commits verificando segurança, performance, padrões Laravel e cobertura de testes.",
+      "promptFile": ".claude/agents/code-reviewer.md",
+      "tools": ["Read", "Glob", "Grep", "mcp__laravel-boost__database-schema", "mcp__laravel-boost__search-docs"]
+    },
+    "test-generator": {
+      "description": "Gera testes Pest automaticamente para controllers, models, Livewire components e validações.",
+      "promptFile": ".claude/agents/test-generator.md",
+      "tools": ["Read", "Write", "Glob", "Grep", "Bash", "mcp__laravel-boost__search-docs", "mcp__laravel-boost__list-artisan-commands"]
+    },
+    "migration-validator": {
+      "description": "Valida migrations antes de executar, verificando reversibilidade, foreign keys e padrões Laravel 12.",
+      "promptFile": ".claude/agents/migration-validator.md",
+      "tools": ["Read", "Glob", "Grep", "mcp__laravel-boost__database-schema", "mcp__laravel-boost__search-docs"]
+    },
+    "livewire-builder": {
+      "description": "Cria componentes Livewire seguindo padrões do projeto com Flux UI e Alpine.js.",
+      "promptFile": ".claude/agents/livewire-builder.md",
+      "tools": ["Read", "Write", "Glob", "Grep", "Bash", "mcp__laravel-boost__search-docs", "mcp__laravel-boost__list-artisan-commands"]
+    },
+    "refactor-analyzer": {
+      "description": "Analisa código e sugere refatorações para Services, Actions, Scopes e componentes.",
+      "promptFile": ".claude/agents/refactor-analyzer.md",
+      "tools": ["Read", "Glob", "Grep", "mcp__laravel-boost__search-docs"]
+    },
+    "performance-auditor": {
+      "description": "Identifica problemas de performance como N+1 queries, falta de índices e oportunidades de cache.",
+      "promptFile": ".claude/agents/performance-auditor.md",
+      "tools": ["Read", "Glob", "Grep", "mcp__laravel-boost__database-schema", "mcp__laravel-boost__database-query", "mcp__laravel-boost__search-docs"]
+    },
+    "api-documenter": {
+      "description": "Documenta APIs automaticamente gerando OpenAPI/Swagger specs a partir de rotas e resources.",
+      "promptFile": ".claude/agents/api-documenter.md",
+      "tools": ["Read", "Write", "Glob", "Grep", "mcp__laravel-boost__list-routes", "mcp__laravel-boost__search-docs"]
+    }
+  }
+}
